@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
+    private bool IsJumping;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        IsJumping = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
         transform.Translate(movement / 10);
         Debug.Log(movement);
 
         if (Input.GetKeyDown(KeyCode.Space)){
             GetComponent<Rigidbody>().AddForce(Vector3.up * 5.0f, ForceMode.Impulse);   // Impulse - 질량의 영향을 받으면서 힘을 가하는 옵션
+
+            if (!IsJumping)
+            {
+                IsJumping = true;
+                GetComponent<Rigidbody>().AddForce(Vector3.up * 10.0f, ForceMode.Impulse);
+            }
+
+            else
+                return;
         }
 
         /*else if(Input.GetKeyDown(KeyCode.A)){
@@ -39,5 +50,11 @@ public class player : MonoBehaviour
         {
             GetComponent<Rigidbody>().AddForce(Vector3.forward * 3.0f, ForceMode.Impulse);
         }*/
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Land"))
+            IsJumping = false;
     }
 }
