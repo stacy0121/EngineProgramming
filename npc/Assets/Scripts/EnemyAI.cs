@@ -9,7 +9,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] Transform[] m_tfWayPoints = null;   // Bake한 이동할 장소를 배열로 저장. 이동한 위치 변수
     int m_count = 0;    // 움직인 횟수
 
-    Transform m_target = null;
+    Transform m_target = null;   // 타겟 초기화
     // 적이 나를 따라오게
     public void SelfTarget(Transform p_target)   // 위험지역에 들어가면
     {
@@ -23,11 +23,11 @@ public class EnemyAI : MonoBehaviour
         InvokeRepeating("MoveToNextWayPoint", 0f, 2f);
     }
 
-    void MoveToNextWayPoint()   // 멈추면 다음 지점으로
+    void MoveToNextWayPoint()
     {
-        if(m_target == null)   // 타겟이 위험 지역에 없을 때
+        if(m_target == null)   // 타겟이 없을 때 실행
         {
-            if(m_enemy.velocity == Vector3.zero)
+            if(m_enemy.velocity == Vector3.zero)   // 멈추면 다음 지점으로
             {
                 m_enemy.SetDestination(m_tfWayPoints[m_count++].position);
 
@@ -51,6 +51,10 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_enemy.SetDestination(m_target.position);   // m_target이 정해지면 실행됨
+        if(m_target != null)   // 타겟이 정해지면 쫓아가기
+        {
+            m_enemy.SetDestination(m_target.position);
+        }
+        
     }
 }

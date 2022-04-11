@@ -10,7 +10,7 @@ public class dangerousZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-
+            m_enemy.SelfTarget(other.transform);
         }
     }
 
@@ -18,7 +18,7 @@ public class dangerousZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-
+            m_enemy.RemoveTarget();
         }
     }
 
