@@ -8,6 +8,7 @@ TagManager:
   - obstacle
   - fallingLand
   - coin
+  - enemy
   layers:
   - Default
   - TransparentFX

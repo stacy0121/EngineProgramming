@@ -23,12 +23,12 @@ public class camera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 FixedPos = new Vector3(target.position.x + offsetX, target.position.y + offsetY, target.position.z + offsetZ);
-        transform.position = Vector3.Lerp(transform.position, FixedPos, Time.deltaTime * DelayTime);
+        Vector3 FixedPos = new Vector3(target.position.x + offsetX, target.position.y + offsetY, target.position.z + offsetZ);   // 부드러운 움직임
+        transform.position = Vector3.Lerp(transform.position, FixedPos, Time.deltaTime * DelayTime);   // 위치 갱신
     }
     void LateUpdate()
     {
-        tr.position = new Vector3(target.position.x, target.position.y+10, target.position.z - 10);
+        tr.position = new Vector3(target.position.x, target.position.y+10, target.position.z - 10);   // 카메라 위치 고정
 
         tr.LookAt(target);
     }

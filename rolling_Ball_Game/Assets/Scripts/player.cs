@@ -18,8 +18,8 @@ public class player : MonoBehaviour
     void Update()
     {
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        transform.Translate(movement / 15);
-        Debug.Log(movement);
+        //transform.Translate(movement / 15);
+        GetComponent<Rigidbody>().AddForce(movement*7);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -48,13 +48,22 @@ public class player : MonoBehaviour
 
         if (collision.gameObject.CompareTag("fallingLand"))   // 땅에 닿으면 떨어뜨리기
         {
-            fallingLand.GetComponent<Rigidbody>().useGravity = true;
-            Object.Destroy(gameObject, 5);
+            collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            Object.Destroy(collision.gameObject, 5);
         }
 
-        if (collision.gameObject.tag == "coin")   // 코인 먹기
+        if (collision.gameObject.CompareTag("enemy"))   // 적에게 닿으면 1점 감점
         {
-            Object.Destroy(collision.gameObject);
+            textControl.po -= 1;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // 코인을 먹으면 코인이 사라지고 점수가 1점 올라감
+        if (other.gameObject.tag == "coin")   // IsTrigger 체크
+        {
+            Object.Destroy(other.gameObject);
             textControl.po += 1;
         }
     }
