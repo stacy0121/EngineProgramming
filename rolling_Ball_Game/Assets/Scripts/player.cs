@@ -6,12 +6,14 @@ public class player : MonoBehaviour
 {
     private bool IsJumping;
     private GameObject fallingLand;
+    public static bool finish;
 
     // Start is called before the first frame update
     void Start()
     {
         IsJumping = false;
         fallingLand = GameObject.FindGameObjectWithTag("fallingLand");
+        finish = false;   // 게임 끝 여부 확인
     }
 
     // Update is called once per frame
@@ -19,7 +21,7 @@ public class player : MonoBehaviour
     {
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         //transform.Translate(movement / 15);
-        GetComponent<Rigidbody>().AddForce(movement*7);
+        GetComponent<Rigidbody>().AddForce(movement*8);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -27,7 +29,7 @@ public class player : MonoBehaviour
             if (!IsJumping)
             {
                 IsJumping = true;
-                GetComponent<Rigidbody>().AddForce(Vector3.up * 7.0f, ForceMode.Impulse);   // Impulse - 질량의 영향을 받으면서 힘을 가하는 옵션
+                GetComponent<Rigidbody>().AddForce(Vector3.up * 10.0f, ForceMode.Impulse);   // Impulse - 질량의 영향을 받으면서 힘을 가하는 옵션
             }
 
             else
@@ -56,6 +58,11 @@ public class player : MonoBehaviour
         {
             textControl.po -= 1;
         }
+
+        if (collision.gameObject.CompareTag("finish"))   // 끝 지점에 닿으면 게임 끝
+        {
+            finish = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -65,6 +72,7 @@ public class player : MonoBehaviour
         {
             Object.Destroy(other.gameObject);
             textControl.po += 1;
+
         }
     }
 }

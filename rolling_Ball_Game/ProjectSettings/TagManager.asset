@@ -9,6 +9,7 @@ TagManager:
   - fallingLand
   - coin
   - enemy
+  - finish
   layers:
   - Default
   - TransparentFX
