@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class counter : MonoBehaviour
 {
     private Text text;
-    static float count;
+    public static float count;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +18,8 @@ public class counter : MonoBehaviour
     void Update()
     {
         count -= Time.deltaTime;
-        text.text = count.ToString();
+        text.text = string.Format("{0:N0}", count);
+        Debug.Log(count);
         if (count < 1)
             Destroy(this.gameObject);
     }

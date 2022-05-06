@@ -17,9 +17,14 @@ public class timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Timer += Time.deltaTime;   // 시간 싱크
-        //text.text = Timer.ToString();
-        text.text = string.Format("{0:N2}", Timer);
-        Debug.Log(Timer);
+        if(counter.count < 1)   // 카운트를 다 세면 타이머 시작
+        {
+            if (run.xPos < 144)   // 도착할 때까지만 기록
+                Timer += Time.deltaTime;   // 시간 싱크 맞춤
+            //text.text = Timer.ToString();
+            text.text = string.Format("{0:N2}", Timer);   // 소수점 아래 2자리
+            //Debug.Log(Timer);
+        }
+        
     }
 }
