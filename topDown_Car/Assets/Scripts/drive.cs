@@ -38,4 +38,12 @@ public class drive : MonoBehaviour
         rb2d.velocity = transform.up*yValue*speed;   // 자기자신 곱하기 up
         transform.Rotate(0, 0, -1 * xValue * 1);
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if(other.gameObject.tag == "wall")
+        {
+            Debug.Log("충돌!");
+        }
+    }
 }
