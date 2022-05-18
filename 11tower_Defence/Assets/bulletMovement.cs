@@ -26,6 +26,8 @@ public class bulletMovement : MonoBehaviour
         //{
         //    Instantiate(this, new Vector3(0, 0, 0), Quaternion.identity);   // 인스턴스 생성(재장전)
         //}
+
+        this.transform.rotation = Quaternion.AngleAxis(canonMovement.angle, Vector3.forward);
     }
     void OnBecameInvisible()   // 화면에서 벗어나면 오브젝트 제거
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class canonMovement : MonoBehaviour
 {
-    float angle;
+    public static float angle;
     Vector2 target;
     public static Vector3 objPosition;
     public GameObject bullet;
