@@ -7,7 +7,7 @@ public class drive : MonoBehaviour
     public Rigidbody2D rb2d;
     float xValue;
     float yValue;
-    public float speed;   // 가속력
+    public float speed;
     public Camera camera;
 
     // Start is called before the first frame update
@@ -24,24 +24,26 @@ public class drive : MonoBehaviour
         xValue = Input.GetAxis("Horizontal");
 
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))   // 왼쪽 쉬프트키를 누르면 가속
         {
             speed = 7;
         }
 
-        camera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+        camera.transform.position = new Vector3(transform.position.x, transform.position.y+1.5f, -10);   // 카메라 위치
     }
 
     public void FixedUpdate()   // 물리엔진
     {
-        //rb2d.velocity = new Vector2(0, yValue);   // 좌표 변경
-        rb2d.velocity = transform.up*yValue*speed;   // 자기자신 곱하기 up
+        //rb2d.velocity = new Vector2(0, yValue);    // 좌표 변경
+        rb2d.velocity = transform.up*yValue*speed;   // 자기자신 곱하기 up * 사용자 입력 방향 * 가속력
         transform.Rotate(0, 0, -1 * xValue * 1);
+
+        camera.transform.Rotate(0, 0, -1 * xValue * 0.8f);    // 카메라 회전
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.tag == "wall")
+        if(other.gameObject.tag == "wall")   // 충돌체(풀더미)에 부딪히면 콘솔에 로그 띄우기
         {
             Debug.Log("충돌!");
         }
