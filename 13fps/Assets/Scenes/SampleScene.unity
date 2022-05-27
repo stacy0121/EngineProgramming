@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 519896704}
   m_Layer: 0
   m_Name: me
-  m_TagString: Untagged
+  m_TagString: me
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,7 +237,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 10
   m_CollisionDetection: 0
 --- !u!114 &519896704
 MonoBehaviour:
@@ -251,8 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 547ace83d6155a047bedac1322fccb02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diglett: {fileID: 0}
-  originalDig: {fileID: 5971425012932969764, guid: b3966d72305061d4aa46210f7e7cf8d6, type: 3}
+  originalDig: {fileID: 4716168586781199868, guid: 3e60c63f95589e743baba47de90b55a0, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
