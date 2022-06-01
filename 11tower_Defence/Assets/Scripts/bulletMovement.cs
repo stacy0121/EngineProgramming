@@ -4,39 +4,30 @@ using UnityEngine;
 
 public class bulletMovement : MonoBehaviour
 {
-    //Rigidbody2D rb2D;
-    //bool fire;
-
-    // Start is called before the first frame update
     void Start()
     {
-        //rb2D = GetComponent<Rigidbody2D>();
-        //fire = false;
+        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0)&&fire==false)
-        //{
-        //    fire = true;
-        //    rb2D.AddForce(canonMovement.objPosition * 20);
-        //}
 
-        //this.transform.rotation = Quaternion.AngleAxis(canonMovement.angle, Vector3.forward);   // 대포 방향대로 총알 방향 설정
-    }
-    void OnBecameInvisible()   // 화면에서 벗어나면 오브젝트 제거
-    {
-        Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) //충돌감지
+    void OnBecameInvisible()   // 화면에서 벗어나면
     {
-        Debug.Log("GET");
-        if (collision.gameObject.tag == "enemy") //만약에 적과 총알이 충돌하면
+        Destroy(gameObject);   // 총알 오브젝트 제거
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)   // 충돌 감지
+    {
+        if (collision.gameObject.tag == "enemy")   // 만약에 적과 총알이 충돌하면
         {
-            Debug.Log("COLLISION");
-            Destroy(gameObject);   // 총알 없애기
+            Destroy(gameObject);    // 총알 없애기
+            stamina_Text.enemy++;   // 킬 수 추가
+
+            if (stamina_Text.enemy == 20)      // 적 20마리를 모두 죽이면
+                canonMovement.finish = true;   // 게임 종료
         }
     }
 }
