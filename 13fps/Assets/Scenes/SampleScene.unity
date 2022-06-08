@@ -252,6 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalDig: {fileID: 4716168586781199868, guid: 3e60c63f95589e743baba47de90b55a0, type: 3}
+  bullet: {fileID: 3095089727603344536, guid: 5860b54f7d2153145a90ed173b94d40d, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
