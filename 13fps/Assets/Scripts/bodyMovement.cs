@@ -37,7 +37,7 @@ public class bodyMovement : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            cloneBullet = Instantiate(bullet, new Vector3(0, 2, 1), Quaternion.identity);
+            cloneBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             Vector3 screenPositon = new Vector3(Screen.width / 2, Screen.height / 2, 10f);   // 현재 화면에서 위치 업데이트 (정가운데) *왼쪽 아래가 (0, 0)*
             Vector3 aimPosition = Camera.main.ScreenToWorldPoint(screenPositon);   // 화면 좌표를 유니티 위치값으로 변환 *정가운데가 (0, 0). 크기도 다름*
             cloneBullet.GetComponent<Rigidbody>().AddForce(aimPosition * 100f);   // 위치*힘
