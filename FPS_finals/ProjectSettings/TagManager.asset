@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - me
+  - tower
+  - enemy
+  - arrow
   layers:
   - Default
   - TransparentFX

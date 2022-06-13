@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 10d5a6f6c81ba36498b61f8e66fb5323
+guid: 91d6e5b58cea4ae49835428f288983aa
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BauMat
+    second: {fileID: 2100000, guid: 58fc2f27f006ea54fb2d30d6cf708e5d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: husamMat
+    second: {fileID: 2100000, guid: 58fc2f27f006ea54fb2d30d6cf708e5d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
