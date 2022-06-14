@@ -23,7 +23,7 @@ public class bulletMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)   // 충돌 감지
     {
-        if (collision.gameObject.tag == "enemy")   // 만약에 적과 총알이 충돌하면
+        if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "tower")   // 만약에 총알이 적이나 타워에 충돌하면
         {
             Destroy(gameObject);    // 총알 없애기
         }

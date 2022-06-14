@@ -11,45 +11,54 @@ public class bodyMovement : MonoBehaviour
     GameObject cloneBullet;
 
     float rotationX;
-    float rotationY;
+    public static float speed = 0.01f;
 
-    float spawnX; float spawnY; float spawnZ;
-    float rotateY;
-
+    Vector3 target;
     // Start is called before the first frame update
     void Start()
     {
-        sub = Instantiate(originalSub, new Vector3(Random.Range(-10f, 10f), 10, Random.Range(-10f, 10f)), Quaternion.identity);   // 복제품 생성 (원본 보존)
-        spawnX = transform.position.x; spawnY = transform.position.y; spawnZ = transform.position.z;
-        rotateY = transform.rotation.y;
+        target = transform.position;
+        sub = Instantiate(originalSub, new Vector3(-4.9f, 37.5f, 19.1f), Quaternion.identity);
     }
 
     // Update is called once per frame
     void Update()
     {
+        // 몸의 회전
+        float angle = transform.eulerAngles.y;   // 몸이 회전하는 값 중 y회전값만 추출
+
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         transform.Translate(movement / 50);
+     
+        float headX = Input.GetAxis("Mouse X");   // 마우스로 몸통 좌우로만 회전 (위아래 회전할 경우 기울어짐)
+        //float headY = Input.GetAxis("Mouse Y");
 
-        // 몸이 회전
-        float headX = Input.GetAxis("Mouse X");
-        float headY = Input.GetAxis("Mouse Y");   // 마우스값 초기화
+        rotationX = rotationX + headX;     // 회전값 가중
+        //rotationY = rotationY + headY;
 
-        rotationX = rotationX + headX;
-        rotationY = rotationY + headY;           // 전역 변수에 가중
+        transform.eulerAngles = new Vector3(0.0f, rotationX, 0.0f);   // 플레이어 회전값
 
-        transform.eulerAngles = new Vector3(-rotationY, rotationX, 0.0f);
+        // 화살 생성 위치
+        Vector3 cloneArrow = new Vector3(Screen.width*6/8, Screen.height /2, 1f); // 현재 화면에서 화살이 생성될 위치 업데이트 (정가운데) *왼쪽 아래가 (0, 0)*
+        Vector3 cloneArrowInUnity = Camera.main.ScreenToWorldPoint(cloneArrow);      // 화면 좌표를 유니티 위치값으로 변환 *정가운데가(0, 0). 크기도 다름*
 
-        spawnX = transform.position.x + 0.8f; spawnY = transform.position.y + 1.27f; spawnZ = transform.position.z + 0.930f;   // 스폰 위치를 플레이어 오른쪽으로 고정
-        rotateY = transform.eulerAngles.y + 71.128f;   // 화살 회전
-
+        // 마우스 버튼을 눌렀다가 떼었을 때 화살 발사
         if (Input.GetMouseButtonUp(0))
         {
-            cloneBullet = Instantiate(bullet, new Vector3(spawnX, spawnY, spawnZ), Quaternion.identity);
-            cloneBullet.transform.eulerAngles = new Vector3(transform.eulerAngles.x, rotateY, 1);
-            Vector3 screenPositon = new Vector3(Screen.width / 2, Screen.height / 2, 10f);   // 현재 화면에서 위치 업데이트 (정가운데) *왼쪽 아래가 (0, 0)*
-            Vector3 aimPosition = Camera.main.ScreenToWorldPoint(screenPositon);   // 화면 좌표를 유니티 위치값으로 변환 *정가운데가 (0, 0). 크기도 다름*
-            Debug.Log(aimPosition);
-            cloneBullet.GetComponent<Rigidbody>().AddForce(aimPosition * 50f);   // 위치*힘
+            cloneBullet = Instantiate(bullet);   // 화살 prefeb에서 인스턴스화
+            cloneBullet.transform.position = cloneArrowInUnity;   // 지정한 스폰 위치로 화살 옮김
+            Vector3 screenPositon = new Vector3(Screen.width /2, Screen.height*3/5, 500f);   // 현재 화면에서 화살의 도착 위치
+            Vector3 aimPosition = Camera.main.ScreenToWorldPoint(screenPositon);   // 화면 좌표를 유니티 좌표로 변경
+            cloneBullet.GetComponent<Rigidbody>().AddForce(aimPosition * 8f);      // 위치*힘
+       
+            cloneBullet.transform.eulerAngles = new Vector3(0, angle+80, 0);   // 플레이어가 회전하면 화살의 방향도 회전. headY?
         }
+
+        // 타워 체력이 0이 되면 적이 나에게 다가온다
+        if (tower_Text.stm == 0)
+        {
+            sub.transform.rotation = Quaternion.LookRotation(transform.position - sub.transform.position).normalized;
+            sub.transform.position = Vector3.MoveTowards(sub.transform.position, transform.position, speed);
+        } 
     }
 }
