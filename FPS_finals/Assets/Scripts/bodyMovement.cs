@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class bodyMovement : MonoBehaviour
 {
-    public static GameObject sub;
-    public GameObject originalSub;
+    public static GameObject boss;
+    public GameObject originalBoss;
+    public static Transform playerTransform;
 
     public GameObject bullet;   // prefeb 사용
     GameObject cloneBullet;
@@ -14,11 +15,13 @@ public class bodyMovement : MonoBehaviour
     public static float speed = 0.01f;
 
     Vector3 target;
+    public static bool finish = false;   // 체력이 0이 되거나 적을 모두 죽였을 때 true
+    bool spawn = false;
+
     // Start is called before the first frame update
     void Start()
     {
         target = transform.position;
-        sub = Instantiate(originalSub, new Vector3(-4.9f, 37.5f, 19.1f), Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -29,7 +32,8 @@ public class bodyMovement : MonoBehaviour
 
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         transform.Translate(movement / 50);
-     
+        playerTransform = transform;
+
         float headX = Input.GetAxis("Mouse X");   // 마우스로 몸통 좌우로만 회전 (위아래 회전할 경우 기울어짐)
         //float headY = Input.GetAxis("Mouse Y");
 
@@ -54,11 +58,28 @@ public class bodyMovement : MonoBehaviour
             cloneBullet.transform.eulerAngles = new Vector3(0, angle+80, 0);   // 플레이어가 회전하면 화살의 방향도 회전. headY?
         }
 
-        // 타워 체력이 0이 되면 적이 나에게 다가온다
-        if (tower_Text.stm == 0)
+        // 서브몹을 다 처치하면 보스 등장
+        if (enemyStamina_Text.stm1 == 0)
         {
-            sub.transform.rotation = Quaternion.LookRotation(transform.position - sub.transform.position).normalized;
-            sub.transform.position = Vector3.MoveTowards(sub.transform.position, transform.position, speed);
-        } 
+            if(spawn != true)   // 한 번만 스폰
+            {
+                boss = Instantiate(originalBoss, new Vector3(0, 5.86f, 0), Quaternion.identity);
+                spawn = true;
+            }
+
+            boss.transform.rotation = Quaternion.LookRotation(transform.position - boss.transform.position).normalized;
+            boss.transform.position = Vector3.MoveTowards(boss.transform.position, transform.position, speed);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "enemy")   // 대포에 적이 부딪히면
+        {
+            playerStamina_Text.stm--;          // 대포 체력 닳게 하기
+
+            if (playerStamina_Text.stm == 0)   // 만약 체력이 0이 되면
+                finish = true;           // 게임 종료 (failed 보여주기)
+        }
     }
 }
