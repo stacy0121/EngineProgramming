@@ -6,7 +6,7 @@ public class bodyMovement : MonoBehaviour
 {
     public static GameObject boss;
     public GameObject originalBoss;
-    public static Transform playerTransform;
+    public static Vector3 playerPosition;
 
     public GameObject bullet;   // prefeb 사용
     GameObject cloneBullet;
@@ -14,14 +14,13 @@ public class bodyMovement : MonoBehaviour
     float rotationX;
     public static float speed = 0.01f;
 
-    Vector3 target;
     public static bool finish = false;   // 체력이 0이 되거나 적을 모두 죽였을 때 true
     bool spawn = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        target = transform.position;
+
     }
 
     // Update is called once per frame
@@ -32,7 +31,7 @@ public class bodyMovement : MonoBehaviour
 
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         transform.Translate(movement / 50);
-        playerTransform = transform;
+        playerPosition = transform.position;
 
         float headX = Input.GetAxis("Mouse X");   // 마우스로 몸통 좌우로만 회전 (위아래 회전할 경우 기울어짐)
         //float headY = Input.GetAxis("Mouse Y");
@@ -55,7 +54,7 @@ public class bodyMovement : MonoBehaviour
             Vector3 aimPosition = Camera.main.ScreenToWorldPoint(screenPositon);   // 화면 좌표를 유니티 좌표로 변경
             cloneBullet.GetComponent<Rigidbody>().AddForce(aimPosition * 8f);      // 위치*힘
        
-            cloneBullet.transform.eulerAngles = new Vector3(0, angle+80, 0);   // 플레이어가 회전하면 화살의 방향도 회전. headY?
+            cloneBullet.transform.eulerAngles = new Vector3(0, angle+80, 0);   // 플레이어가 회전하면 화살의 방향도 회전. headY?*****************************************************
         }
 
         // 서브몹을 다 처치하면 보스 등장
