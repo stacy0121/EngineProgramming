@@ -6,7 +6,7 @@ public class head : MonoBehaviour
 {
     public static float angleCam;
     float rotationX;
-    float rotationY;
+    public static float rotationY;
 
     public static float headY;
     void Start()

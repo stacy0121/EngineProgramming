@@ -54,7 +54,7 @@ public class bodyMovement : MonoBehaviour
             Vector3 aimPosition = Camera.main.ScreenToWorldPoint(screenPositon);   // 화면 좌표를 유니티 좌표로 변경
             cloneBullet.GetComponent<Rigidbody>().AddForce(aimPosition * 8f);      // 위치*힘
        
-            cloneBullet.transform.eulerAngles = new Vector3(0, angle+80, 0);   // 플레이어가 회전하면 화살의 방향도 회전. headY?*****************************************************
+            cloneBullet.transform.eulerAngles = new Vector3(0, angle+80, -head.rotationY);   // 플레이어가 회전하면 화살의 방향도 회전. headY?*****************************************************
         }
 
         // 서브몹을 다 처치하면 보스 등장
