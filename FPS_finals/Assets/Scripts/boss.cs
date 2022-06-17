@@ -24,7 +24,7 @@ public class boss: MonoBehaviour
             {
                 Debug.Log("Collision");
                 bodyMovement.boss = Instantiate(gameObject, new Vector3(Random.Range(-40f, 40f), 4, Random.Range(-40f, 40f)), Quaternion.identity);
-                bodyMovement.speed += 0.005f;   // 속도가 점점 빨라짐
+                bodyMovement.speed += 0.001f;   // 속도가 점점 빨라짐
             }
             Destroy(gameObject);
             enemyStamina_Text.stm2--;   // 체력 차감

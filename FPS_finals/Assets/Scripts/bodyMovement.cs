@@ -46,7 +46,7 @@ public class bodyMovement : MonoBehaviour
         Vector3 cloneArrowInUnity = Camera.main.ScreenToWorldPoint(cloneArrow);      // 화면 좌표를 유니티 위치값으로 변환 *정가운데가(0, 0). 크기도 다름*
 
         // 마우스 버튼을 눌렀다가 떼었을 때 화살 발사
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && Time.frameCount % 3 == 0)   // 화살 발사 딜레이
         {
             cloneBullet = Instantiate(bullet);   // 화살 prefeb에서 인스턴스화
             cloneBullet.transform.position = cloneArrowInUnity;   // 지정한 스폰 위치로 화살 옮김

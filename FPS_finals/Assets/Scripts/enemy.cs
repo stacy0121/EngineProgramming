@@ -5,6 +5,8 @@ using UnityEngine;
 public class enemy : MonoBehaviour
 {
     float rotationX;
+    public static float distance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,18 +16,18 @@ public class enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 적에게 가까이 다가가면 서브몹이 움직임 (게임 시작)
-        float distance = Vector3.Distance(bodyMovement.playerPosition, transform.position);
-        Debug.Log("distance: " + distance);
-
+        // 나를 바라보는 적
         float headX = Input.GetAxis("Mouse X");
         rotationX = rotationX + headX;
-        transform.eulerAngles = new Vector3(-90, rotationX+180, 0.0f);
-        //transform.rotation = Quaternion.LookRotation(bodyMovement.playerPosition - transform.position).normalized;   //*******************************************     
-        if (distance <= 15.0f)
+        transform.eulerAngles = new Vector3(-90, rotationX + 180, 0.0f);
+
+        // 적에게 가까이 다가가면 서브몹이 움직임 (게임 시작)
+        distance = Vector3.Distance(bodyMovement.playerPosition, transform.position);
+        Debug.Log("distance: " + distance);
+
+        if (distance <= 15.0f)   // 적과의 거리가 15 이하일 때
         {
-            transform.position = Vector3.MoveTowards(transform.position, bodyMovement.playerPosition, 0.05f);
-            //Debug.Log(Vector3.Distance(bodyMovement.playerTransform.transform.position, transform.position));
+            transform.position = Vector3.MoveTowards(transform.position, bodyMovement.playerPosition, 0.01f);
         }
     }
 

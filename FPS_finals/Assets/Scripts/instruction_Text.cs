@@ -20,6 +20,5 @@ public class instruction_Text : MonoBehaviour
                 text.text = "Failed!";
             else text.text = "Success!";   // 적을 다 죽였을 때
         }
-
     }
 }
