@@ -24,7 +24,7 @@ public class enemy : MonoBehaviour
         //transform.rotation = Quaternion.LookRotation(bodyMovement.playerPosition - transform.position).normalized;   //*******************************************     
         if (distance <= 15.0f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, bodyMovement.playerPosition, 0.01f);
+            transform.position = Vector3.MoveTowards(transform.position, bodyMovement.playerPosition, 0.05f);
             //Debug.Log(Vector3.Distance(bodyMovement.playerTransform.transform.position, transform.position));
         }
     }
@@ -33,7 +33,11 @@ public class enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "arrow")   // 화살이 적에 닿으면 적을 없애고 다른 위치에 자동 생성
         {
-            enemyStamina_Text.stm2--;   // 체력 차감
+            enemyStamina_Text.stm1--;   // 체력 차감
+            if (enemyStamina_Text.stm1 == 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -295,8 +295,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 72.5, y: 188.17}
-  m_SizeDelta: {x: 196.53, y: 49.35}
+  m_AnchoredPosition: {x: 47.5, y: 188.17}
+  m_SizeDelta: {x: 273.8, y: 49.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &140689350
 MonoBehaviour:
@@ -786,7 +786,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2453807835456906848, guid: b674ac6a3f2ec6f4ebf944fe2bb8d1e4, type: 3}
 --- !u!54 &473737008
@@ -803,7 +803,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &473737009
 MonoBehaviour:
@@ -1805,7 +1805,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -295.93, y: 193.8}
-  m_SizeDelta: {x: 163.5, y: 38.1}
+  m_SizeDelta: {x: 220.2, y: 38.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1031298895
 MonoBehaviour:

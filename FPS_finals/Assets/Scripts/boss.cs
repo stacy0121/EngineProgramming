@@ -23,7 +23,7 @@ public class boss: MonoBehaviour
             if (bodyMovement.finish == false)   // 게임 종료가 아닐 때
             {
                 Debug.Log("Collision");
-                bodyMovement.boss = Instantiate(gameObject, new Vector3(Random.Range(-50f, 50f), 4, Random.Range(-50f, 50f)), Quaternion.identity);
+                bodyMovement.boss = Instantiate(gameObject, new Vector3(Random.Range(-40f, 40f), 4, Random.Range(-40f, 40f)), Quaternion.identity);
                 bodyMovement.speed += 0.005f;   // 속도가 점점 빨라짐
             }
             Destroy(gameObject);
